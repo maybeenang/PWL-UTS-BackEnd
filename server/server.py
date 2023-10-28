@@ -35,7 +35,7 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
                 message="Product retrieved",
             )
         except Exception as e:
-            print(f"Error {e}")
+            print(f"Error fd {e}")
             return products_pb2.ProductResponse(message="Error")
 
     def GetProducts(self, request, context):
@@ -66,7 +66,7 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
                 message="Products retrieved",
             )
         except Exception as e:
-            print(f"Error {e}")
+            print(f"Error df {e}")
             return products_pb2.ProductListResponse(message="Error")
 
     def CreateProduct(self, request, context):
@@ -100,7 +100,7 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
             )
 
         except Exception as e:
-            print(f"Error {e}")
+            print(f"Error sd {e}")
             return products_pb2.ProductResponse(message="Error")
 
     def UpdateProduct(self, request, context):
@@ -137,7 +137,7 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
             )
 
         except Exception as e:
-            print(f"Error {e}")
+            print(f"Error as {e}")
             return products_pb2.ProductResponse(message="Error")
 
     def DeleteProduct(self, request, context):
@@ -145,16 +145,14 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
             with engine.connect() as conn:
                 conn.begin()
 
-                res = conn.execute(delete(Product).where(Product.id == request.id))
+                conn.execute(delete(Product).where(Product.id == request.id))
 
                 conn.commit()
 
-            return products_pb2.ProductDeleteResponse(
-                message="Product deleted",
-            )
+            return products_pb2.ProductDeleteResponse(message="Product deleted")
 
         except Exception as e:
-            print(f"Error {e}")
+            print(f"Error as {e.with_traceback()}")
             return products_pb2.ProductDeleteResponse(message="Error")
 
 

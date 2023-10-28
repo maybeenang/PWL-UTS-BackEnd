@@ -52,6 +52,9 @@ class ProductClient:
     def get_product(self, id):
         response = self.stub.GetProduct(products_pb2.ProductRequest(id=id))
 
+        if response.product.id == 0:
+            return None
+
         return dict(
             id=response.product.id,
             name=response.product.name,
@@ -63,6 +66,9 @@ class ProductClient:
 
     def get_products(self):
         response = self.stub.GetProducts(products_pb2.ProductListRequest())
+
+        if len(response.products) == 0:
+            return None
 
         return [
             dict(
@@ -87,8 +93,23 @@ class ProductClient:
                 stock=stock,
             )
         )
-        return response
+
+        if response.product.id == 0:
+            return None
+
+        return dict(
+            id=response.product.id,
+            name=response.product.name,
+            price=response.product.price,
+            description=response.product.description,
+            image_url=response.product.image_url,
+            stock=response.product.stock,
+        )
 
     def delete_product(self, id):
         response = self.stub.DeleteProduct(products_pb2.ProductDeleteRequest(id=id))
-        return response
+
+        if response.message is None:
+            return None
+
+        return dict(message=response.message)
