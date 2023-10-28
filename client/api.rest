@@ -4,7 +4,7 @@
 GET {{baseUrl}}/api/v1/product/
 
 ### get by id
-GET {{baseUrl}}/api/v1/product/?productId=1
+GET {{baseUrl}}/api/v1/product/?productId=27
 
 ### create product
 POST {{baseUrl}}/api/v1/product/
@@ -33,9 +33,9 @@ DELETE  {{baseUrl}}/api/v1/product/
     "id": 14
 }
 
-### delete product
+### get price products
 POST {{baseUrl}}/api/v1/product/sum-price
 
 {
-    "id": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    "id": [30, 32, 33]
 }

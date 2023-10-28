@@ -6,7 +6,7 @@ import products_pb2
 import products_pb2_grpc
 
 from database.config import engine
-from sqlalchemy import insert, text, values, select, update, delete
+from sqlalchemy import insert, text, values, select, update, delete, desc
 
 from models.product import Product
 
@@ -43,7 +43,7 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
             with engine.connect() as conn:
                 conn.begin()
 
-                res = conn.execute(select(Product)).all()
+                res = conn.execute(select(Product).order_by(desc(Product.id))).all()
 
                 products = []
 
@@ -168,6 +168,12 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
                     res = conn.execute(select(Product).where(Product.id == id)).first()
 
                     if res is not None:
+                        conn.execute(
+                            update(Product)
+                            .where(Product.id == id)
+                            .values(stock=res[4] - 1)
+                        )
+
                         price += res[2]
 
                     conn.commit()
