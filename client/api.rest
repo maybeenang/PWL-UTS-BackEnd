@@ -32,3 +32,10 @@ DELETE  {{baseUrl}}/api/v1/product/
 {
     "id": 14
 }
+
+### delete product
+POST {{baseUrl}}/api/v1/product/sum-price
+
+{
+    "id": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+}

@@ -88,3 +88,15 @@ class ProductDeleteResponse(_message.Message):
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
     message: str
     def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class ProductSumPriceRequest(_message.Message):
+    __slots__ = ["id"]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, id: _Optional[_Iterable[int]] = ...) -> None: ...
+
+class ProductSumPriceResponse(_message.Message):
+    __slots__ = ["price"]
+    PRICE_FIELD_NUMBER: _ClassVar[int]
+    price: float
+    def __init__(self, price: _Optional[float] = ...) -> None: ...

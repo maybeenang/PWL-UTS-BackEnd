@@ -118,3 +118,20 @@ class ProductView:
             return result
         except Exception as e:
             return Response(json_body={"error": {"message": str(e)}}, status=500)
+
+
+@view_config(route_name="sum_product_price", renderer="json", request_method="POST")
+def sum_product_price(request):
+    if request.json_body.get("id") == None:
+        return Response(json_body={"error": {"message": "id is required"}}, status=400)
+
+    if len(request.json_body.get("id")) == 0:
+        return Response(json_body={"error": {"message": "id is required"}}, status=400)
+
+    try:
+        print(request.json_body.get("id"))
+        product_client = ProductClient()
+        result = product_client.sum_price_product(id=request.json_body.get("id"))
+        return result
+    except Exception as e:
+        return Response(json_body={"error": {"message": str(e)}}, status=500)

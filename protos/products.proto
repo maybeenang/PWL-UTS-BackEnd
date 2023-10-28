@@ -53,6 +53,14 @@ message ProductDeleteResponse {
   string message = 1;
 }
 
+message ProductSumPriceRequest {
+  repeated int32 id = 1;
+}
+
+message ProductSumPriceResponse {
+  float price = 1;
+}
+
 
 service Products {
   rpc GetProduct(ProductRequest) returns (ProductResponse) {}
@@ -60,4 +68,5 @@ service Products {
   rpc CreateProduct(ProductCreateRequest) returns (ProductResponse) {}
   rpc UpdateProduct(ProductUpdateRequest) returns (ProductResponse) {}
   rpc DeleteProduct(ProductDeleteRequest) returns (ProductDeleteResponse) {}
+  rpc SumPriceProducts(ProductSumPriceRequest) returns (ProductSumPriceResponse) {}
 }

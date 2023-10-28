@@ -155,6 +155,31 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
             print(f"Error as {e.with_traceback()}")
             return products_pb2.ProductDeleteResponse(message="Error")
 
+    def SumPriceProducts(self, request, context):
+        try:
+            price = 0
+
+            ids = request.id
+
+            for id in ids:
+                with engine.connect() as conn:
+                    conn.begin()
+
+                    res = conn.execute(select(Product).where(Product.id == id)).first()
+
+                    if res is not None:
+                        price += res[2]
+
+                    conn.commit()
+
+            return products_pb2.ProductSumPriceResponse(
+                price=price,
+            )
+
+        except Exception as e:
+            print(f"Error df {e}")
+            return products_pb2.ProductSumPriceResponse()
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

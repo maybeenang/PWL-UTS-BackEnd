@@ -113,3 +113,13 @@ class ProductClient:
             return None
 
         return dict(message=response.message)
+
+    def sum_price_product(self, id):
+        response = self.stub.SumPriceProducts(
+            products_pb2.ProductSumPriceRequest(id=id)
+        )
+
+        if response.price is None:
+            return None
+
+        return dict(pro=response.price)

@@ -39,6 +39,11 @@ class ProductsStub(object):
             request_serializer=products__pb2.ProductDeleteRequest.SerializeToString,
             response_deserializer=products__pb2.ProductDeleteResponse.FromString,
         )
+        self.SumPriceProducts = channel.unary_unary(
+            "/products.Products/SumPriceProducts",
+            request_serializer=products__pb2.ProductSumPriceRequest.SerializeToString,
+            response_deserializer=products__pb2.ProductSumPriceResponse.FromString,
+        )
 
 
 class ProductsServicer(object):
@@ -74,6 +79,12 @@ class ProductsServicer(object):
         context.set_details("Method not implemented!")
         raise NotImplementedError("Method not implemented!")
 
+    def SumPriceProducts(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
+
 
 def add_ProductsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -101,6 +112,11 @@ def add_ProductsServicer_to_server(servicer, server):
             servicer.DeleteProduct,
             request_deserializer=products__pb2.ProductDeleteRequest.FromString,
             response_serializer=products__pb2.ProductDeleteResponse.SerializeToString,
+        ),
+        "SumPriceProducts": grpc.unary_unary_rpc_method_handler(
+            servicer.SumPriceProducts,
+            request_deserializer=products__pb2.ProductSumPriceRequest.FromString,
+            response_serializer=products__pb2.ProductSumPriceResponse.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -248,6 +264,35 @@ class Products(object):
             "/products.Products/DeleteProduct",
             products__pb2.ProductDeleteRequest.SerializeToString,
             products__pb2.ProductDeleteResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
+
+    @staticmethod
+    def SumPriceProducts(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            "/products.Products/SumPriceProducts",
+            products__pb2.ProductSumPriceRequest.SerializeToString,
+            products__pb2.ProductSumPriceResponse.FromString,
             options,
             channel_credentials,
             insecure,
