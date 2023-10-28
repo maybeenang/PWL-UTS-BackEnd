@@ -190,9 +190,9 @@ class ProductsServicer(products_pb2_grpc.ProductsServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     products_pb2_grpc.add_ProductsServicer_to_server(ProductsServicer(), server)
-    server.add_insecure_port("localhost:5000")
+    server.add_insecure_port("localhost:6000")
     server.start()
-    print("Server started at localhost:5000")
+    print("Server started at localhost:6000")
     server.wait_for_termination()
 
 

@@ -25,7 +25,7 @@ import client.grpc.products_pb2 as products_pb2
 class ProductClient:
     def __init__(self):
         self.host = "localhost"
-        self.server_port = 5000
+        self.server_port = 6000
 
         self.channel = grpc.insecure_channel(f"{self.host}:{self.server_port}")
         self.stub = products_pb2_grpc.ProductsStub(self.channel)
